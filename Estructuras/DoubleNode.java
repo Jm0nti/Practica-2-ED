@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+package Estructuras;
 
-package jeferson.listasdobles;
 
-/**
- *
- * @author JEFERSON
- */
 public class DoubleNode {
     private Object data;
     private DoubleNode next,prev; 
