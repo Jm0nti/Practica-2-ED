@@ -9,11 +9,11 @@ public class Menu {
 
     // Menú de opciones para Empleado
     public void menuEmpleado() {
-        System.out.println("Menú de opciones para usuario:");
+        System.out.println("Menú de opciones para empleado:");
         System.out.println("1. Bandeja de entrada");
         System.out.println("2. Leídos");
         System.out.println("3. Borradores");
-        System.out.println("4. Enviar mensaje");
+        System.out.println("4. Redactar nuevo mensaje");
         System.out.println("0. Salir");
     }
 
@@ -23,7 +23,7 @@ public class Menu {
         System.out.println("1. Bandeja de entrada");
         System.out.println("2. Leídos");
         System.out.println("3. Borradores");
-        System.out.println("4. Enviar mensaje");
+        System.out.println("4. Redactar nuevo mensaje");
         System.out.println("5. Agregar usuario");
         System.out.println("6. Eliminar usuario");
         System.out.println("7. Editar usuario");
