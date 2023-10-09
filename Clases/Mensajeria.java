@@ -3,10 +3,13 @@ package Clases;
 import Estructuras.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Scanner;
 
 public class Mensajeria {
         private DoubleList empleados = new DoubleList();
         private DoubleList contraseñas = new DoubleList();
+        private Scanner scanner = new Scanner(System.in);
+
 
         public DoubleList getEmpleados(){
             return this.empleados;
@@ -56,6 +59,66 @@ public class Mensajeria {
         }
     }
 
-    
+
+
+
+    public void enviarMensaje(Usuario remitente) {
+        System.out.print("Ingrese la cédula del destinatario: ");
+        long destinatarioCedula = scanner.nextLong();
+        scanner.nextLine();
+
+        // Buscar destinatario
+        Usuario destinatario = buscarUsuario(destinatarioCedula);
+
+        if (destinatario != null) {
+            System.out.print("Ingrese el título del mensaje: ");
+            String titulo = scanner.nextLine();
+
+            System.out.print("Ingrese el contenido del mensaje: ");
+            String contenido = scanner.nextLine();
+
+            // Crear mensaje
+            Mensaje mensaje = new Mensaje(remitente, destinatario, titulo, contenido);
+
+            // Opciones punto seis
+            System.out.println("Opciones:");
+            System.out.println("1. Guardar como borrador");
+            System.out.println("2. Descartar");
+            System.out.println("3. Enviar mensaje");
+
+            int opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    remitente.agregarBorrador(mensaje);
+                    System.out.println("Mensaje guardado como borrador.");
+                    break;
+                case 2:
+                    System.out.println("Mensaje descartado.");
+                    break;
+                case 3:
+                    destinatario.agregarMensajeBandejaEntrada(mensaje);
+                    System.out.println("Mensaje enviado a " + destinatario.getNombre() + ".");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
+            }
+        } else {
+            System.out.println("Destinatario no encontrado.");
+        }
+    }
+
+    private Usuario buscarUsuario(long cedula) {
+        DoubleNode currentNode = empleados.first();
+        while (currentNode != null) {
+            Usuario usuario = (Usuario) currentNode.getData();
+            if (usuario.getId() == cedula) {
+                return usuario;
+            }
+            currentNode = currentNode.getNext();
+        }
+        return null;
+    }
 
 }

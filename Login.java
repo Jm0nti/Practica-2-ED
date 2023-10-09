@@ -14,7 +14,7 @@ public class Login {
         String[] contraseñaPrueba = (String[]) mensajeria.getContraseñas().first().getData();
         System.out.println(contraseñaPrueba[1]);
        
-        /* 
+        
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese su número de identificación: ");
@@ -52,8 +52,8 @@ public class Login {
                                 System.out.println("Borradores de empleado");
                                 break;
                             case 4:
-                                // Lógica para Enviar mensaje
-                                System.out.println("Enviar mensaje de empleado");
+                                System.out.println("Redactar nuevo mensaje de empleado");
+                                mensajeria.enviarMensaje(usuarioPrueba);
                                 break;
                             case 0:
                                 System.out.println("Saliendo...");
@@ -84,8 +84,8 @@ public class Login {
                                 System.out.println("Borradores de administrador");
                                 break;
                             case 4:
-                                // Lógica para Enviar mensaje
-                                System.out.println("Enviar mensaje de administrador");
+                                System.out.println("Redactar mensaje de administrador");
+                                mensajeria.enviarMensaje(usuarioPrueba);
                                 break;
                             case 5:
                                 // Lógica para Agregar usuario
@@ -116,7 +116,6 @@ public class Login {
         } else {
             System.out.println("Cédula no encontrada");
         }
-
         scanner.close();*/
     }
 }

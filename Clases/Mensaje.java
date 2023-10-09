@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 public class Mensaje {
 
     private Usuario remitente;
-    private long destinatario;
+    private Usuario destinatario;
     private String titulo;
     private String contenido;
     private LocalDateTime fecha;
     
-    public Mensaje(Usuario remitente, long destinatario, String titulo, String contenido) {
+    public Mensaje(Usuario remitente, Usuario destinatario, String titulo, String contenido) {
         this.remitente = remitente;
         this.destinatario = destinatario;
         this.titulo = titulo;
@@ -22,7 +22,7 @@ public class Mensaje {
         return remitente;
     }
 
-    public long getDestinatario() {
+    public Usuario getDestinatario() {
         return destinatario;
     }
 
