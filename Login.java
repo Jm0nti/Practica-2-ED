@@ -12,17 +12,6 @@ public class Login {
         mensajeria.importarEmpleados();
         //Importar Contraseñas
         mensajeria.importarContraseñas();
-<<<<<<< HEAD
-=======
-        //Dejo ejemplo de como funciona la importacion, toca primero instanciar la clase usuario para poder
-        //usar los metodos que tiene adentro
-        Usuario usuarioPrueba = (Usuario) mensajeria.getEmpleados().first().getNext().getData();
-        System.out.println(usuarioPrueba.getNombre());
-        String[] contraseñaPrueba = (String[]) mensajeria.getContraseñas().first().getData();
-        System.out.println(contraseñaPrueba[1]);
-       
-        /* 
->>>>>>> db4475140164a9325c01b121f841b6106327ea66
 
 
         // Comienzo de Login - input de datos
