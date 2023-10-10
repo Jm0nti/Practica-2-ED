@@ -14,7 +14,7 @@ public class Login {
         String[] contraseñaPrueba = (String[]) mensajeria.getContraseñas().first().getData();
         System.out.println(contraseñaPrueba[1]);
        
-        
+     
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese su número de identificación: ");

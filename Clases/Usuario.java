@@ -1,7 +1,5 @@
 package Clases;
-import java.util.Stack;
 
-import Estructuras.DoubleList;
 
 public class Usuario {
     private String nombre;
@@ -11,8 +9,6 @@ public class Usuario {
     private long tel;
     private String email;
     private Direccion dir;
-    private DoubleList bandejaEntrada;
-    private Stack<Mensaje> borradores;
 
     public Usuario(String nombre, long id, Fecha fechaNac, String ciudadNac, long tel, String email, Direccion dir) {
         this.nombre = nombre;
@@ -22,8 +18,6 @@ public class Usuario {
         this.tel = tel;
         this.email = email;
         this.dir = dir;
-        this.bandejaEntrada = new DoubleList();
-        this.borradores = new Stack<>();
     }
 
 
@@ -85,26 +79,5 @@ public class Usuario {
         this.email = email;
     }
 
-    public void agregarMensajeBandejaEntrada(Mensaje mensaje) {
-        bandejaEntrada.addLast(mensaje);
-    }
-
-    public Mensaje obtenerBandejaEntrada() {
-        return (Mensaje) bandejaEntrada.removeFirst();
-    }
-
-    public void agregarBorrador(Mensaje mensaje) {
-        borradores.push(mensaje);
-    }
-
-    public Mensaje obtenerBorrador() {
-        if (!borradores.isEmpty()) {
-            return borradores.pop();
-        } else {
-            System.out.println("No hay borradores disponibles.");
-            return null;
-        }
-    }
-    
 }
 

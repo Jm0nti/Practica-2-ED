@@ -4,10 +4,13 @@ import Estructuras.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Mensajeria {
         private DoubleList empleados = new DoubleList();
         private DoubleList contraseñas = new DoubleList();
+        private DoubleList bandejaEntrada = new DoubleList();
+        private Stack<Mensaje> borradores = new Stack<>();
         private Scanner scanner = new Scanner(System.in);
 
 
@@ -90,14 +93,14 @@ public class Mensajeria {
 
             switch (opcion) {
                 case 1:
-                    remitente.agregarBorrador(mensaje);
+                    agregarBorrador(mensaje);
                     System.out.println("Mensaje guardado como borrador.");
                     break;
                 case 2:
                     System.out.println("Mensaje descartado.");
                     break;
                 case 3:
-                    destinatario.agregarMensajeBandejaEntrada(mensaje);
+                    agregarMensajeBandejaEntrada(mensaje);
                     System.out.println("Mensaje enviado a " + destinatario.getNombre() + ".");
                     break;
                 default:
@@ -119,6 +122,27 @@ public class Mensajeria {
             currentNode = currentNode.getNext();
         }
         return null;
+    }
+
+    public void agregarMensajeBandejaEntrada(Mensaje mensaje) {
+        bandejaEntrada.addLast(mensaje);
+    }
+
+    public Mensaje obtenerBandejaEntrada() {
+        return (Mensaje) bandejaEntrada.removeFirst();
+    }
+
+    public void agregarBorrador(Mensaje mensaje) {
+        borradores.push(mensaje);
+    }
+
+    public Mensaje obtenerBorrador() {
+        if (!borradores.isEmpty()) {
+            return borradores.pop();
+        } else {
+            System.out.println("No hay borradores disponibles.");
+            return null;
+        }
     }
 
 }
