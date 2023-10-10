@@ -5,12 +5,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class Mensajeria {
         private DoubleList empleados = new DoubleList();
         private DoubleList contraseñas = new DoubleList();
         private DoubleList bandejaEntrada = new DoubleList();
         private Stack<Mensaje> borradores = new Stack<>();
+        private Queue<Mensaje> mensajesLeidos = new LinkedList<>();
         private Scanner scanner = new Scanner(System.in);
 
 
@@ -64,17 +67,18 @@ public class Mensajeria {
 
 
 
-    
+
 
     // BANDEJA DE ENTRADA
     public void mostrarBandejaEntrada(Usuario remitente) {
         System.out.println("Bandeja de entrada:");
-        
+    
         // Recorrer la bandeja de entrada y mostrar mensajes no leídos
         for (int i = 0; i < bandejaEntrada.size(); i++) {
             Mensaje mensaje = (Mensaje) bandejaEntrada.get(i);
-            
-            if (mensaje.getDestinatario().getId() == remitente.getId() && !mensaje.isLeido()) {
+    
+            // Verificar que el destinatario sea el usuario en sesión y que el mensaje no esté leído
+            if (mensaje.getDestinatario().getId() ==  remitente.getId() && !mensaje.isLeido()) {
                 System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
                 System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
                 System.out.println("Título del mensaje: " + mensaje.getTitulo());
@@ -85,12 +89,13 @@ public class Mensajeria {
         // Seleccionar y leer un mensaje específico
         System.out.print("Seleccione el número del mensaje que desea leer (0 para salir): ");
         int opcionMensaje = scanner.nextInt();
-        
+    
         if (opcionMensaje > 0 && opcionMensaje <= bandejaEntrada.size()) {
             Mensaje mensajeSeleccionado = (Mensaje) bandejaEntrada.get(opcionMensaje - 1);
-            
+    
             // Marcar el mensaje como leído
             mensajeSeleccionado.setLeido(true);
+            agregarMensajeLeido(mensajeSeleccionado);
     
             // Leer el contenido del mensaje
             System.out.println("Contenido del mensaje:");
@@ -110,34 +115,35 @@ public class Mensajeria {
         System.out.print("Ingrese la cédula del destinatario: ");
         long destinatarioCedula = scanner.nextLong();
         scanner.nextLine();
-
+    
         // Buscar destinatario
         Usuario destinatario = buscarUsuario(destinatarioCedula);
-
+    
         if (destinatario != null) {
             System.out.print("Ingrese el título del mensaje: ");
             String titulo = scanner.nextLine();
-
+    
             System.out.print("Ingrese el contenido del mensaje: ");
             String contenido = scanner.nextLine();
-
+    
             // Crear mensaje
             Mensaje mensaje = new Mensaje(remitente, destinatario, titulo, contenido);
-
+    
             // Opciones punto seis
             System.out.println("Opciones:");
             System.out.println("1. Guardar como borrador");
             System.out.println("2. Descartar");
             System.out.println("3. Enviar mensaje");
-
+    
             int opcion = scanner.nextInt();
-
+    
             switch (opcion) {
                 case 1:
                     agregarBorrador(mensaje);
                     System.out.println("Mensaje guardado como borrador.");
                     break;
                 case 2:
+                    // Eliminar el mensaje creado si se selecciona "Descartar"
                     System.out.println("Mensaje descartado.");
                     break;
                 case 3:
@@ -150,6 +156,37 @@ public class Mensajeria {
             }
         } else {
             System.out.println("Destinatario no encontrado.");
+        }
+    }
+
+
+    // MENSAJES LEIDOS
+    public void mostrarMensajesLeidos(Usuario remitente) {
+        System.out.println("Mensajes leídos:");
+    
+        // Recorrer la cola de mensajes leídos y mostrar los mensajes del remitente actual
+        for (Mensaje mensaje : mensajesLeidos) {
+            if (mensaje.getDestinatario().getId() == remitente.getId()) {
+                System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
+                System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
+                System.out.println("Título del mensaje: " + mensaje.getTitulo());
+                System.out.println("------------------------------");
+            }
+        }
+    
+        // Seleccionar y mostrar un mensaje específico
+        System.out.print("Seleccione el número del mensaje que desea ver (0 para salir): ");
+        int opcionMensaje = scanner.nextInt();
+    
+        if (opcionMensaje > 0 && opcionMensaje <= mensajesLeidos.size()) {
+            Mensaje mensajeSeleccionado = (Mensaje) mensajesLeidos.toArray()[opcionMensaje - 1];
+    
+            System.out.println("Contenido del mensaje:");
+            System.out.println(mensajeSeleccionado.getContenido());
+        } else if (opcionMensaje == 0) {
+            System.out.println("Volviendo al menú principal.");
+        } else {
+            System.out.println("Opción no válida.");
         }
     }
 
@@ -169,8 +206,12 @@ public class Mensajeria {
         bandejaEntrada.addLast(mensaje);
     }
 
-    public Mensaje obtenerBandejaEntrada() {
-        return (Mensaje) bandejaEntrada.removeFirst();
+    public void agregarMensajeLeido(Mensaje mensaje) {
+        mensajesLeidos.offer(mensaje);
+    }
+
+    public Mensaje obtenerMensajeLeido() {
+        return mensajesLeidos.poll();
     }
 
     public void agregarBorrador(Mensaje mensaje) {
