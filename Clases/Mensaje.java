@@ -24,6 +24,10 @@ public class Mensaje {
         return remitente;
     }
 
+    public long getRemitenteId() {
+        return remitente.getId();
+    }
+
     public Usuario getDestinatario() {
         return destinatario;
     }
