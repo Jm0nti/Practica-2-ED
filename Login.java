@@ -1,123 +1,66 @@
 import Clases.*;
+import Estructuras.DoubleNode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Login {
     public static void main(String[] args) {
+
         Mensajeria mensajeria = new Mensajeria();
         //Importar los empleados
         mensajeria.importarEmpleados();
         //Importar Contraseñas
         mensajeria.importarContraseñas();
-        //Dejo ejemplo de como funciona la importacion, toca primero instanciar la clase usuario para poder
-        //usar los metodos que tiene adentro
-        Usuario usuarioPrueba = (Usuario) mensajeria.getEmpleados().first().getNext().getData();
-        System.out.println(usuarioPrueba.getNombre());
-        String[] contraseñaPrueba = (String[]) mensajeria.getContraseñas().first().getData();
-        System.out.println(contraseñaPrueba[1]);
-       
-     
 
+
+        // Comienzo de Login - input de datos
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese su número de identificación: ");
-        String cedula = scanner.nextLine();
+        String idIngresada = scanner.nextLine();
         System.out.print("Ingrese su contraseña: ");
-        String contrasena = scanner.nextLine();
+        String contraseñaIngresada = scanner.nextLine();
 
-        // Falta corregir el login teniendo en cuenta como fueron ingresados los datos
-        if (usuarios.containsKey(cedula)) {
-            String[] usuario = usuarios.get(cedula);
-            String contrasenaGuardada = usuario[0];
-            String tipoUsuario = usuario[1];
+        // Verificar estado de Login y estado de empleado
+        boolean VerificarLogin = false;
+        boolean SuperUser = false;
 
-            if (contrasena.equals(contrasenaGuardada)) {
-                Menu menu = new Menu();
+        List<String> contraseñas = new ArrayList<>();
 
-                if (tipoUsuario.equals("empleado")) {
-                    // Menú para empleado
-                    int opcion;
-                    do {
-                        menu.menuEmpleado();
-                        opcion = menu.obtenerOpcion();
-
-                        switch (opcion) {
-                            case 1:
-                                // Lógica para Bandeja de entrada
-                                System.out.println("Bandeja de entrada de empleado");
-                                mensajeria.mostrarBandejaEntrada(usuarioPrueba);
-                                break;
-                            case 2:
-                                // Lógica para Leídos
-                                System.out.println("Leídos de empleado");
-                                break;
-                            case 3:
-                                // Lógica para Borradores
-                                System.out.println("Borradores de empleado");
-                                break;
-                            case 4:
-                                System.out.println("Redactar nuevo mensaje de empleado");
-                                mensajeria.enviarMensaje(usuarioPrueba);
-                                break;
-                            case 0:
-                                System.out.println("Saliendo...");
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    } while (opcion != 0);
-                } else if (tipoUsuario.equals("administrador")) {
-                    // Menú para administrador
-                    int opcion;
-                    do {
-                        menu.menuAdmin();
-                        opcion = menu.obtenerOpcion();
-
-                        switch (opcion) {
-                            case 1:
-                                // Lógica para Bandeja de entrada
-                                System.out.println("Bandeja de entrada de administrador");
-                                mensajeria.mostrarBandejaEntrada(usuarioPrueba);
-                                break;
-                            case 2:
-                                // Lógica para Leídos
-                                System.out.println("Leídos de administrador");
-                                break;
-                            case 3:
-                                // Lógica para Borradores
-                                System.out.println("Borradores de administrador");
-                                break;
-                            case 4:
-                                System.out.println("Redactar mensaje de administrador");
-                                mensajeria.enviarMensaje(usuarioPrueba);
-                                break;
-                            case 5:
-                                // Lógica para Agregar usuario
-                                System.out.println("Agregar usuario");
-                                break;
-                            case 6:
-                                // Lógica para Eliminar usuario
-                                System.out.println("Eliminar usuario");
-                                break;
-                            case 7:
-                                // Lógica para Editar usuario
-                                System.out.println("Editar usuario");
-                                break;
-                            case 0:
-                                System.out.println("Saliendo...");
-                                break;
-                            default:
-                                System.out.println("Opción no válida");
-                                break;
-                        }
-                    } while (opcion != 0);
-                }
-
-                menu.cerrarEscanner();
-            } else {
-                System.out.println("Contraseña incorrecta");
+        DoubleNode currentDoubleNode = mensajeria.getContraseñas().first();
+        while (currentDoubleNode != null) {
+            Object[] data = (Object[]) currentDoubleNode.getData();
+            if (data.length == 3 && data[0] instanceof String && data[1] instanceof String) {
+                String contraseña = (String) data[0] + " " + (String) data[1] + " " + (String) data[2];
+                contraseñas.add(contraseña);
             }
-        } else {
-            System.out.println("Cédula no encontrada");
+            currentDoubleNode = currentDoubleNode.getNext();
         }
-        scanner.close();*/
+
+        for (String contraseña : contraseñas) {
+            String[] partes = contraseña.split(" ");
+            if (partes.length == 3 && partes[0].equals(idIngresada) && partes[1].equals(contraseñaIngresada)) {
+                VerificarLogin = true;
+                SuperUser = partes[2].equals("administrador");
+                break;
+            }
+        }
+
+        if (VerificarLogin) {
+            System.out.println("Inicio de sesión exitoso, eres " + (SuperUser ? "administrador" : "empleado"));
+
+            Menu menu = new Menu();
+
+            if (SuperUser) {
+                menu.menuAdmin();
+            } else {
+                menu.menuEmpleado();
+            }
+
+            int opcion = menu.obtenerOpcion();
+            menu.manejarOpcion(opcion);
+        } else {
+            System.out.println("Usuario o contraseña incorrectos");
+        }
     }
 }
