@@ -64,7 +64,48 @@ public class Mensajeria {
 
 
 
+    
 
+    // BANDEJA DE ENTRADA
+    public void mostrarBandejaEntrada(Usuario remitente) {
+        System.out.println("Bandeja de entrada:");
+        
+        // Recorrer la bandeja de entrada y mostrar mensajes no leídos
+        for (int i = 0; i < bandejaEntrada.size(); i++) {
+            Mensaje mensaje = (Mensaje) bandejaEntrada.get(i);
+            
+            if (mensaje.getDestinatario().getId() == remitente.getId() && !mensaje.isLeido()) {
+                System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
+                System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
+                System.out.println("Título del mensaje: " + mensaje.getTitulo());
+                System.out.println("------------------------------");
+            }
+        }
+    
+        // Seleccionar y leer un mensaje específico
+        System.out.print("Seleccione el número del mensaje que desea leer (0 para salir): ");
+        int opcionMensaje = scanner.nextInt();
+        
+        if (opcionMensaje > 0 && opcionMensaje <= bandejaEntrada.size()) {
+            Mensaje mensajeSeleccionado = (Mensaje) bandejaEntrada.get(opcionMensaje - 1);
+            
+            // Marcar el mensaje como leído
+            mensajeSeleccionado.setLeido(true);
+    
+            // Leer el contenido del mensaje
+            System.out.println("Contenido del mensaje:");
+            System.out.println(mensajeSeleccionado.getContenido());
+        } else if (opcionMensaje == 0) {
+            System.out.println("Volviendo al menú principal.");
+        } else {
+            System.out.println("Opción no válida.");
+        }
+    }
+
+
+
+
+    // ENVIAR MENSAJE
     public void enviarMensaje(Usuario remitente) {
         System.out.print("Ingrese la cédula del destinatario: ");
         long destinatarioCedula = scanner.nextLong();

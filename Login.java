@@ -42,6 +42,7 @@ public class Login {
                             case 1:
                                 // Lógica para Bandeja de entrada
                                 System.out.println("Bandeja de entrada de empleado");
+                                mensajeria.mostrarBandejaEntrada(usuarioPrueba);
                                 break;
                             case 2:
                                 // Lógica para Leídos
@@ -74,6 +75,7 @@ public class Login {
                             case 1:
                                 // Lógica para Bandeja de entrada
                                 System.out.println("Bandeja de entrada de administrador");
+                                mensajeria.mostrarBandejaEntrada(usuarioPrueba);
                                 break;
                             case 2:
                                 // Lógica para Leídos

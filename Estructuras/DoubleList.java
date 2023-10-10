@@ -119,4 +119,18 @@ public class DoubleList {
             size++;
         }
     }
+
+    public Object get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+        }
+
+        DoubleNode current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+
+        return current.getData();
+    }
+    
 }
