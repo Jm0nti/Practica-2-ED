@@ -1,9 +1,9 @@
 package Estructuras;
 
-public class Stack {
+public class StackList {
     private List data;
 
-    public Stack() {
+    public StackList() {
         data = new List();
     }
 

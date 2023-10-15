@@ -73,7 +73,9 @@ public class Menu {
 
                 break;
             case 0:
+                Mensajeria mensajeria = new Mensajeria();
                 System.out.println("Saliendo del programa...");
+                mensajeria.escribirArchivos();
                 break;
             default:
                 System.out.println("Opción no válida.");

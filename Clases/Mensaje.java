@@ -1,6 +1,7 @@
 package Clases;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Mensaje {
 
@@ -8,16 +9,22 @@ public class Mensaje {
     private Usuario destinatario;
     private String titulo;
     private String contenido;
-    private LocalDateTime fecha;
+    private String fecha;
     private boolean leido;
-    
+
     public Mensaje(Usuario remitente, Usuario destinatario, String titulo, String contenido) {
         this.remitente = remitente;
         this.destinatario = destinatario;
         this.titulo = titulo;
         this.contenido = contenido;
-        this.fecha = LocalDateTime.now();
+        this.fecha = getFechaAct();
         this.leido = false;
+    }
+
+    public String getFechaAct() {
+        LocalDateTime fecha = LocalDateTime.now();
+        DateTimeFormatter Formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return fecha.format(Formato);
     }
 
     public Usuario getRemitente() {
@@ -40,15 +47,18 @@ public class Mensaje {
         return contenido;
     }
 
-    public LocalDateTime getFechaEnvio() {
+    public String getFechaEnvio() {
         return fecha;
-        }
+    }
 
     public boolean isLeido() {
         return leido;
     }
 
-    public void setLeido(boolean leido){
+    public void setLeido(boolean leido) {
         this.leido = leido;
+    }
+    public void setFecha(String fecha){
+        this.fecha = fecha;
     }
 }

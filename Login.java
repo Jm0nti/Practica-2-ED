@@ -8,11 +8,8 @@ public class Login {
     public static void main(String[] args) {
 
         Mensajeria mensajeria = new Mensajeria();
-        //Importar los empleados
-        mensajeria.importarEmpleados();
-        //Importar Contraseñas
-        mensajeria.importarContraseñas();
-
+        //Importar los archivos
+        mensajeria.importarArchivos();
 
         // Comienzo de Login - input de datos
         Scanner scanner = new Scanner(System.in);
@@ -28,6 +25,7 @@ public class Login {
         List<String> contraseñas = new ArrayList<>();
 
         DoubleNode currentDoubleNode = mensajeria.getContraseñas().first();
+        
         while (currentDoubleNode != null) {
             Object[] data = (Object[]) currentDoubleNode.getData();
             if (data.length == 3 && data[0] instanceof String && data[1] instanceof String) {

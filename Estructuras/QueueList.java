@@ -1,9 +1,9 @@
 package Estructuras;
 
-public class Queue<T> {
+public class QueueList{
     private List data;
 
-    public Queue() {
+    public QueueList() {
         data = new List();
     }
 
@@ -15,23 +15,23 @@ public class Queue<T> {
         return size() == 0;
     }
 
-    public void enqueue(T e) {
+    public void enqueue(Object e) {
         data.addLast(e);
     }
 
-    public T dequeue() {
+    public Object dequeue() {
         if (isEmpty()) {
             return null;
         } else {
-            return (T) data.removeFirst();
+            return data.removeFirst();
         }
     }
 
-    public T first() {
+    public Object first() {
         if (isEmpty()) {
             return null;
         } else {
-            return (T) data.first().getData();
+            return data.first().getData();
         }
     }
 
