@@ -479,6 +479,7 @@ public class Mensajeria {
                 case 3:
                     agregarMensajeBandejaEntrada(mensaje);
                     System.out.println("Mensaje enviado a " + destinatario.getNombre() + ".");
+                    escribirBandejaEntrada();
                     break;
                 default:
                     System.out.println("Opción no válida.");

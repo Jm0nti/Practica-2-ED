@@ -5,12 +5,16 @@ import java.util.Scanner;
 
 public class Menu {
     private Scanner scanner;
+    private Mensajeria mensajeria;
+    private Usuario remitente;
 
     private List<String> contraseñas;
 
-    public Menu() {
+    public Menu(Mensajeria mensajeria, Usuario remitente) {
         scanner = new Scanner(System.in);
         contraseñas = new ArrayList<>();
+        this.mensajeria = mensajeria;
+        this.remitente = remitente;
     }
 
     // Menú de opciones para Empleado
@@ -60,17 +64,18 @@ public class Menu {
             case 2:
                 // Lógica para la opción 2
                 break;
-
+            case 3:
+                break;
+            case 4:
+                mensajeria.enviarMensaje(remitente);
+                break;
             case 5:
                 manejoUsuario.agregarUsuario(contraseñas);
                 break;
-
             case 6:
                 manejoUsuario.eliminarUsuario(contraseñas);
                 break;
-            // ... resto de métodos
             case 7:
-
                 break;
             case 0:
                 Mensajeria mensajeria = new Mensajeria();
