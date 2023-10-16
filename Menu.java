@@ -67,7 +67,7 @@ public class Menu {
             case 3:
                 break;
             case 4:
-                mensajeria.enviarMensaje(remitente);
+                //mensajeria.enviarMensaje(remitente);
                 break;
             case 5:
                 manejoUsuario.agregarUsuario(contraseñas);
@@ -78,7 +78,6 @@ public class Menu {
             case 7:
                 break;
             case 0:
-                Mensajeria mensajeria = new Mensajeria();
                 System.out.println("Saliendo del programa...");
                 mensajeria.escribirArchivos();
                 break;

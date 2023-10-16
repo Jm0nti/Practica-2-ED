@@ -74,14 +74,19 @@ public class Login {
 
                 Menu menu = new Menu(mensajeria, remitente);
 
+                while(true){
                 if (SuperUser) {
                     menu.menuAdmin();
                 } else {
                     menu.menuEmpleado();
                 }
-
                 int opcion = menu.obtenerOpcion();
                 menu.manejarOpcion(opcion);
+                if(opcion == 0){
+                    mensajeria.escribirArchivos();
+                    break;
+                }
+                }
             } else {
                 System.out.println("Usuario o contraseña incorrectos");
             }

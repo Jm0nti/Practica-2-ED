@@ -6,9 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.Queue;
-import java.util.LinkedList;
+
 
 public class Mensajeria {
     private DoubleList empleados = new DoubleList();
@@ -25,6 +23,15 @@ public class Mensajeria {
 
     public DoubleList getContraseñas() {
         return this.contraseñas;
+    }
+    public DoubleList getBandejaEntrada(){
+        return this.bandejaEntrada;
+    }
+    public StackList getBorradores(){
+        return this.borradores;
+    }
+    public QueueList getMensajesLeidos(){
+        return this.mensajesLeidos;
     }
 
     // CARGAR ARCHIVOS
@@ -107,6 +114,9 @@ public class Mensajeria {
                     bandejaEntrada.addLast(mensaje);
                 }
             }
+            Mensaje prueba = (Mensaje) bandejaEntrada.first().getNext().getData();
+            System.out.println(prueba.getContenido());
+            System.out.println(bandejaEntrada.size());
             lector.close();
         } catch (Exception e) {
             System.out.println("La bandeja de entrada no se pudo cargar correctamente.");
@@ -152,9 +162,9 @@ public class Mensajeria {
 
     public void importarMensajesLeidos() {
         try {
-            FileReader Borradores = new FileReader("Archivos/Borradores.txt");
-            BufferedReader lector = new BufferedReader(Borradores);
-            if (Borradores.ready()) {
+            FileReader MensajesLeidos = new FileReader("Archivos/mensajesLeidos.txt");
+            BufferedReader lector = new BufferedReader(MensajesLeidos);
+            if (MensajesLeidos.ready()) {
                 String dataAux;
                 while ((dataAux = lector.readLine()) != null) {
                     String data[] = dataAux.split(",");
@@ -196,9 +206,13 @@ public class Mensajeria {
 
     public void escribirBandejaEntrada() {
         String texto = "";
+        
+        Mensaje prueba = (Mensaje) bandejaEntrada.first().getNext().getData();
+        System.out.println(prueba.getContenido());
+        System.out.println(bandejaEntrada.size());
         for (int i = 0; i < bandejaEntrada.size(); i++) {
             Mensaje mensaje = (Mensaje) bandejaEntrada.get(i);
-
+            System.out.println(mensaje.getContenido()); 
             if (i == 0) {
                 texto = mensaje.getRemitente().getNombre() + " " + mensaje.getRemitente().getId() + " "
                         + mensaje.getRemitente().getFechaNac().getDd() + " "
@@ -265,6 +279,7 @@ public class Mensajeria {
 
     public void escribirBorradores() {
         List borradoresAux = borradores.getData();
+        System.out.println(borradoresAux.size());
         String texto = "";
         for (int i = 0; i < borradoresAux.size(); i++) {
             Mensaje mensaje = (Mensaje) borradoresAux.get(i);
@@ -334,6 +349,7 @@ public class Mensajeria {
 
     public void escribirMensajesLeidos() {
         List mensajesLeidosAux = mensajesLeidos.getData();
+        System.out.println(mensajesLeidosAux.size());
         String texto = "";
         for (int i = 0; i < mensajesLeidosAux.size(); i++) {
             Mensaje mensaje = (Mensaje) mensajesLeidosAux.get(i);
@@ -479,7 +495,6 @@ public class Mensajeria {
                 case 3:
                     agregarMensajeBandejaEntrada(mensaje);
                     System.out.println("Mensaje enviado a " + destinatario.getNombre() + ".");
-                    escribirBandejaEntrada();
                     break;
                 default:
                     System.out.println("Opción no válida.");
