@@ -79,7 +79,7 @@ public class Menu {
                 break;
             case 7:
                 scanner.nextLine(); // Consume nueva linea anterior
-                System.out.print("Ingrese el ID: ");
+                System.out.print("Ingrese el ID de la contraseña a editar: ");
                 String idEditar = scanner.nextLine();
                 System.out.print("Ingrese la nueva contraseña: ");
                 String Nuevacontraseña = scanner.nextLine();
