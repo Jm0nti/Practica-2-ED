@@ -8,11 +8,9 @@ public class Menu {
     private Mensajeria mensajeria;
     private Usuario remitente;
 
-    private List<String> contraseñas;
 
     public Menu(Mensajeria mensajeria, Usuario remitente) {
         scanner = new Scanner(System.in);
-        contraseñas = new ArrayList<>();
         this.mensajeria = mensajeria;
         this.remitente = remitente;
     }
@@ -70,12 +68,22 @@ public class Menu {
                 mensajeria.enviarMensaje(remitente);
                 break;
             case 5:
-                manejoUsuario.agregarUsuario(contraseñas);
+                manejoUsuario.agregarUsuario(mensajeria);
                 break;
             case 6:
-                manejoUsuario.eliminarUsuario(contraseñas);
+                scanner.nextLine(); // Consume nueva linea anterior
+                System.out.print("Ingrese el ID del usuario a eliminar: ");
+                String idAEliminar = scanner.nextLine();
+                manejoUsuario.eliminarUsuarioE(mensajeria, idAEliminar);
+                manejoUsuario.eliminarUsuarioC(mensajeria, idAEliminar);
                 break;
             case 7:
+                scanner.nextLine(); // Consume nueva linea anterior
+                System.out.print("Ingrese el ID: ");
+                String idEditar = scanner.nextLine();
+                System.out.print("Ingrese la nueva contraseña: ");
+                String Nuevacontraseña = scanner.nextLine();
+                manejoUsuario.editarContraseña(mensajeria, idEditar, Nuevacontraseña);
                 break;
             case 0:
                 Mensajeria mensajeria = new Mensajeria();

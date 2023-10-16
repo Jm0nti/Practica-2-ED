@@ -33,6 +33,10 @@ public class Direccion {
     public String getCiudad() {
         return ciudad;
     }
+
+    public String toString() {
+        return calle + " " + nomenclatura + " " + barrio + " " + ciudad + " " + urbanizacion + " " + noApartamento;
+    }
      
     public void setCalle(String calle) {
         this.calle = calle;

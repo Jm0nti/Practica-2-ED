@@ -49,8 +49,12 @@ public class Usuario {
         return email;
     }
 
+    public String toString() {
+        return nombre + " " + id + " " + fechaNac.toString() + " " + ciudadNac + " " + tel + " " + email + " " + dir.toString();
 
-    
+    }
+
+
     public void setId(long id) {
         this.id = id;
     }
