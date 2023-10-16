@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="001d4a00-8734-40b8-a0c9-6bc3a53c82df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archivos/Empleados.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Archivos/Empleados.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Archivos/Password.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Archivos/Password.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clases/Direccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Direccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clases/Fecha.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Fecha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clases/Mensajeria.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Mensajeria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clases/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clases/manejoUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/manejoUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +41,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Juan/Downloads/ClONE - Mycommit 2/Practica-2-ED-main",
+    "last_opened_file_path": "C:/Users/Juan/Downloads/Práctica 2/App/Practica-2-ED",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,6 +61,7 @@
       <workItem from="1696917655739" duration="222000" />
       <workItem from="1696917951141" duration="251000" />
       <workItem from="1697043210318" duration="750000" />
+      <workItem from="1697422210600" duration="1022000" />
     </task>
     <servers />
   </component>

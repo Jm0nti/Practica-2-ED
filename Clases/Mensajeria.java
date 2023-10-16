@@ -506,7 +506,7 @@ public class Mensajeria {
     }
 
     // MENSAJES LEIDOS
-    public void mostrarMensajesLeidos(Usuario remitente) {
+/*    public void mostrarMensajesLeidos(Usuario remitente) {
         System.out.println("Mensajes leídos:");
 
         // Recorrer la cola de mensajes leídos y mostrar los mensajes del remitente
@@ -535,6 +535,7 @@ public class Mensajeria {
             System.out.println("Opción no válida.");
         }
     }
+*/
 
     private Usuario buscarUsuario(long cedula) {
         DoubleNode currentNode = empleados.first();

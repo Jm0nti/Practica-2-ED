@@ -22,8 +22,10 @@ public class Fecha{
     public int getAa() {
             return aa;
     }
-    
-    
+
+    public String toString() {
+        return dd + " " + mm + " " + aa;
+    }
 
     public void setDd(int dd) {
             this.dd = dd;
