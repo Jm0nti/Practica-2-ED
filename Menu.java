@@ -57,15 +57,16 @@ public class Menu {
     public void manejarOpcion(int opcion) {
         switch (opcion) {
             case 1:
-                // Lógica para la opción 1
+                mensajeria.mostrarBandejaEntrada(remitente);
                 break;
             case 2:
-                // Lógica para la opción 2
+                mensajeria.mostrarMensajesLeidos(mensajeria.getMensajesLeidos(), remitente);
                 break;
             case 3:
+                // Lógica para la opción 3
                 break;
             case 4:
-                //mensajeria.enviarMensaje(remitente);
+                mensajeria.enviarMensaje(remitente);
                 break;
             case 5:
                 manejoUsuario.agregarUsuario(mensajeria);
