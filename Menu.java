@@ -65,7 +65,7 @@ public class Menu {
             case 3:
                 break;
             case 4:
-                //mensajeria.enviarMensaje(remitente);
+                mensajeria.enviarMensaje(remitente);
                 break;
             case 5:
                 manejoUsuario.agregarUsuario(mensajeria);

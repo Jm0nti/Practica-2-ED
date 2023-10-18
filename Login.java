@@ -61,6 +61,7 @@ public class Login {
                     remitente = usuario;
                     break;
                 } else if (contraseña.equals(idIngresada + " " + contraseñaIngresada + " empleado")) {
+                    System.out.println("Hola Munda");
                     VerificarLogin = true;
                     remitente = usuario;
                     break;

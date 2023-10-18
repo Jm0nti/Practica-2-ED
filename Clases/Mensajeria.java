@@ -536,6 +536,9 @@ public class Mensajeria {
         }
     }
 */
+    public void mostrarBorradores(){
+        
+    }
 
     private Usuario buscarUsuario(long cedula) {
         DoubleNode currentNode = empleados.first();
