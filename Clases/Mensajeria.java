@@ -577,55 +577,43 @@ public class Mensajeria {
     public void mostrarMensajesLeidos(QueueList mensajesLeidos, Usuario remitente) {
         System.out.println("Mensajes leídos:");
     
-        if (mensajesLeidos.isEmpty()) {
-            System.out.println("No hay mensajes leídos.");
-            return;
-        }
-        
-
-        // Cola temporal-
         QueueList tempQueue = new QueueList();
     
+        // Recorrer la cola de mensajes leídos
+        int index = 1;
         while (!mensajesLeidos.isEmpty()) {
             Mensaje mensaje = (Mensaje) mensajesLeidos.dequeue();
     
-            // Verificar usuario en sesión
             if (mensaje.getDestinatario().getId() == remitente.getId()) {
+                System.out.println("Número de mensaje: " + index);
                 System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
                 System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
                 System.out.println("Título del mensaje: " + mensaje.getTitulo());
                 System.out.println("------------------------------");
             }
     
+            // Almacena el mensaje en la cola temporal
             tempQueue.enqueue(mensaje);
+            index++;
         }
     
-        // Restaurar la cola original
+        // Restaura la cola original
         mensajesLeidos.setData(tempQueue.getData());
+    
     
         System.out.print("Seleccione el número del mensaje que desea ver (0 para salir): ");
         int opcionMensaje = scanner.nextInt();
     
-        // Restaurar la cola a su estado original
-        restaurarColaMensajesLeidos(mensajesLeidos, tempQueue);
-    
-        if (opcionMensaje > 0 && opcionMensaje <= mensajesLeidos.size()) {
+        if (opcionMensaje > 0 && opcionMensaje <= index - 1) {
             Mensaje mensajeSeleccionado = obtenerMensajeEnCola(mensajesLeidos, opcionMensaje - 1);
+    
+            // Muestra el contenido del mensaje seleccionado
             System.out.println("Contenido del mensaje:");
             System.out.println(mensajeSeleccionado.getContenido());
-
-            // VOLVER AL MENÚ
-
+        } else if (opcionMensaje == 0) {
+            System.out.println("Volviendo al menú principal.");
         } else {
             System.out.println("Opción no válida.");
-
-            // VOLVER AL MENÚ
-
-        }
-    }
-    private void restaurarColaMensajesLeidos(QueueList mensajesLeidos, QueueList tempQueue) {
-        while (!tempQueue.isEmpty()) {
-            mensajesLeidos.enqueue(tempQueue.dequeue());
         }
     }
     
@@ -633,18 +621,20 @@ public class Mensajeria {
         QueueList tempQueue = new QueueList();
         Mensaje mensajeSeleccionado = null;
     
+        int index = 0;
+    
         while (!mensajesLeidos.isEmpty()) {
             Mensaje mensaje = (Mensaje) mensajesLeidos.dequeue();
     
-            // Si es la posición deseada, asignar el mensaje seleccionado
-            if (posicion == 0) {
+            if (index == posicion) {
                 mensajeSeleccionado = mensaje;
             }
-
+    
             tempQueue.enqueue(mensaje);
-            posicion--;
+            index++;
         }
     
+        // Restaura la cola original
         mensajesLeidos.setData(tempQueue.getData());
     
         return mensajeSeleccionado;

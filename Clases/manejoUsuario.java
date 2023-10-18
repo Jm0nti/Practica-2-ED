@@ -8,12 +8,13 @@ import java.util.*;
 public class manejoUsuario {
 
     public static void agregarUsuario(Mensajeria mensajeria) {
+        
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el ID del nuevo usuario: ");
         String Id_nuevo = scanner.nextLine();
 
-        // Verificar si el usuario ya existe en contraseñas
+        // Verificar si ya existe en contraseñas
         DoubleList contraseñas = mensajeria.getContraseñas();
         DoubleNode currentNode = contraseñas.first();
         boolean usuarioExistente = false;
@@ -33,7 +34,7 @@ public class manejoUsuario {
         if (usuarioExistente) {
             System.out.println("Usuario ya existe dentro del sistema!");
         } else {
-            // El usuario no existe, continuar con la entrada de datos
+            // El usuario no existe, continua la entrada de datos
             System.out.print("Ingrese el nombre del nuevo Usuario: ");
             String nombre_nuevoU = scanner.nextLine();
 
@@ -46,22 +47,22 @@ public class manejoUsuario {
 
             System.out.print("Ingrese la fecha de nacimiento del nuevo Usuario (dd/mm/aaaa)\nDía: ");
             int dia_nuevoU = scanner.nextInt();
-            scanner.nextLine();  // Consumir carácter de nueva línea
+            scanner.nextLine();  
 
             System.out.print("Mes: ");
             int mes_nuevoU = scanner.nextInt();
-            scanner.nextLine();  // Consumir carácter de nueva línea
+            scanner.nextLine();  
 
             System.out.print("Año: ");
             int año_nuevoU = scanner.nextInt();
-            scanner.nextLine();  // Consumir carácter de nueva línea
+            scanner.nextLine();  
 
             System.out.print("Ingrese la ciudad de nacimiento del nuevo usuario: ");
             String ciudadN_nuevoU = scanner.nextLine();
 
             System.out.print("Ingrese el telefono del nuevo Usuario: ");
             long tel_nuevoU = scanner.nextLong();
-            scanner.nextLine();  // Consumir carácter de nueva línea
+            scanner.nextLine();  
 
             System.out.print("Ingrese email del nuevo Usuario: ");
             String email_nuevoU = scanner.nextLine();
@@ -88,7 +89,7 @@ public class manejoUsuario {
             String nuevaEntrada_contraseñas = Id_nuevo + " " + Contraseña_nueva + " " + Tipo_nuevo;
 
 
-            // Actualiza ambos txt
+            // Actualiza Empleados.txt
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Archivos/Empleados.txt", true))) {
                 writer.newLine();
                 writer.write(nuevaEntrada_empleados);
@@ -96,7 +97,7 @@ public class manejoUsuario {
                 System.out.println("Error al añadir el usuario.");
             }
 
-
+            // Actualiza Password.txt
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Archivos/Password.txt", true))) {
                 writer.newLine();
                 writer.write(nuevaEntrada_contraseñas);
@@ -111,6 +112,9 @@ public class manejoUsuario {
     }
 
 
+    // ELIMINAR USUARIO 
+    // de lista empleados:
+
     public static void eliminarUsuarioE(Mensajeria mensajeria, String idAEliminar) {
         DoubleList empleados = mensajeria.getEmpleados();
         DoubleNode currentNode = empleados.first();
@@ -121,7 +125,7 @@ public class manejoUsuario {
             Usuario usuario = (Usuario) currentNode.getData();
 
             if (String.valueOf(usuario.getId()).equals(idAEliminar)) {
-                empleados.remove(currentNode); // Eliminamos el nodo que contiene el usuario
+                empleados.remove(currentNode); 
                 usuarioEncontrado = true;
                 break; // Detenemos la búsqueda
             }
@@ -132,30 +136,17 @@ public class manejoUsuario {
 
         if (usuarioEncontrado) {
             System.out.println("Usuario con ID " + idAEliminar + " eliminado exitosamente.");
-            // Sobrescribir el archivo .txt con la lista actualizada
+
             ActualizarEmpleados(empleados);
-            // Devolvemos el índice del usuario encontrado
+
         } else {
             System.out.println("Usuario no encontrado.");// Puedes elegir un valor específico, como -1, para indicar que el usuario no se encontró.
         }
     }
 
 
-    private static void ActualizarEmpleados(DoubleList empleados) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Archivos/Empleados.txt"))) {
-            DoubleNode currentNode = empleados.first();
-            while (currentNode != null) {
-                Usuario usuario = (Usuario) currentNode.getData();
-                // Escribe la información del usuario en el archivo
-                writer.write(usuario.toString()); // Asumiendo que la clase Usuario tiene un método toString()
-                writer.newLine();
-                currentNode = currentNode.getNext();
-            }
-        } catch (IOException e) {
-            System.out.println("Error al sobrescribir el archivo de empleados.");
-        }
-    }
-
+    // ELIMINAR USUARIO 
+    // de lista contraseñas:
 
     public static void eliminarUsuarioC(Mensajeria mensajeria, String idAEliminar) {
         DoubleList contraseñas = mensajeria.getContraseñas();
@@ -166,19 +157,19 @@ public class manejoUsuario {
             String userId = userData[0];
 
             if (userId.equals(idAEliminar)) {
-                // Eliminamos el nodo que contiene el usuario
                 contraseñas.remove(currentNode);
-                // System.out.println("Usuario con ID " + idAEliminar + " eliminado de contraseñas.");
-                break; // Detenemos la búsqueda
+               
+                break; 
             }
 
             currentNode = currentNode.getNext();
         }
 
-        // Actualizamos el archivo Password.txt
         ActualizarContraseñas(contraseñas);
     }
 
+
+    // EDITAR CONTRASEÑA
 
     public static void editarContraseña(Mensajeria mensajeria, String idEditar, String Nuevacontraseña) {
         DoubleList contraseñas = mensajeria.getContraseñas();
@@ -198,11 +189,28 @@ public class manejoUsuario {
             currentNode = currentNode.getNext();
         }
 
-        // Actualizamos el archivo Password.txt
         ActualizarContraseñas(contraseñas);
     }
 
 
+    // Escribir archivos
+
+    private static void ActualizarEmpleados(DoubleList empleados) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Archivos/Empleados.txt"))) {
+            DoubleNode currentNode = empleados.first();
+            while (currentNode != null) {
+                Usuario usuario = (Usuario) currentNode.getData();
+                // Escribe la información del usuario en el archivo
+                writer.write(usuario.toString()); // Asumiendo que la clase Usuario tiene un método toString()
+                writer.newLine();
+                currentNode = currentNode.getNext();
+            }
+        } catch (IOException e) {
+            System.out.println("Error al sobrescribir el archivo de empleados.");
+        }
+    }
+
+    
     private static void ActualizarContraseñas(DoubleList contraseñas) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Archivos/Password.txt"))) {
             DoubleNode currentNode = contraseñas.first();
