@@ -21,7 +21,7 @@ public class Login {
             boolean VerificarLogin = false;
             boolean SuperUser = false;
 
-            List<String> contraseñas = new ArrayList<>();
+            DoubleList contraseñas = mensajeria.getContraseñas();
             
             DoubleList usuarios = mensajeria.getEmpleados();
             Usuario remitente = null;
@@ -31,25 +31,19 @@ public class Login {
             DoubleNode currentDoubleNode = mensajeria.getContraseñas().first();
 
 
-
             while (currentDoubleNode != null) {
-                Object[] data = (Object[]) currentDoubleNode.getData();
-                if (data.length == 3 && data[0] instanceof String && data[1] instanceof String) {
-                    String contraseña = (String) data[0] + " " + (String) data[1] + " " + (String) data[2];
-                    contraseñas.add(contraseña);
+                String[] userData = (String[]) currentDoubleNode.getData();
+                String userId = userData[0];
+                String userContraseña = userData[1];
+                String userTipo = userData[2];
+
+                if (userId.equals(idIngresada) && userContraseña.equals(contraseñaIngresada)) {
+                    VerificarLogin = true;
+                    SuperUser = userTipo.equals("administrador");
                 }
                 currentDoubleNode = currentDoubleNode.getNext();
             }
-            
 
-            for (String contraseña : contraseñas) {
-                String[] partes = contraseña.split(" ");
-                if (partes.length == 3 && partes[0].equals(idIngresada) && partes[1].equals(contraseñaIngresada)) {
-                    VerificarLogin = true;
-                    SuperUser = partes[2].equals("administrador");
-                    break;
-                }
-            }
 
             while (currentDoubleNodeU != null) {
                 Usuario usuario = (Usuario) currentDoubleNodeU.getData();

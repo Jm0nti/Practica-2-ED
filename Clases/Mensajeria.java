@@ -506,39 +506,82 @@ public class Mensajeria {
     }
 
     // MENSAJES LEIDOS
-/*    public void mostrarMensajesLeidos(Usuario remitente) {
+    public void mostrarMensajesLeidos(QueueList mensajesLeidos, Usuario remitente) {
         System.out.println("Mensajes leídos:");
+    
+        if (mensajesLeidos.isEmpty()) {
+            System.out.println("No hay mensajes leídos.");
+            return;
+        }
+        
 
-        // Recorrer la cola de mensajes leídos y mostrar los mensajes del remitente
-        // actual
-        for (Mensaje mensaje : mensajesLeidos) {
+        // Cola temporal-
+        QueueList tempQueue = new QueueList();
+    
+        while (!mensajesLeidos.isEmpty()) {
+            Mensaje mensaje = (Mensaje) mensajesLeidos.dequeue();
+    
+            // Verificar usuario en sesión
             if (mensaje.getDestinatario().getId() == remitente.getId()) {
                 System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
                 System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
                 System.out.println("Título del mensaje: " + mensaje.getTitulo());
                 System.out.println("------------------------------");
             }
+    
+            tempQueue.enqueue(mensaje);
         }
-
-        // Seleccionar y mostrar un mensaje específico
+    
+        // Restaurar la cola original
+        mensajesLeidos.setData(tempQueue.getData());
+    
         System.out.print("Seleccione el número del mensaje que desea ver (0 para salir): ");
         int opcionMensaje = scanner.nextInt();
-
+    
+        // Restaurar la cola a su estado original
+        restaurarColaMensajesLeidos(mensajesLeidos, tempQueue);
+    
         if (opcionMensaje > 0 && opcionMensaje <= mensajesLeidos.size()) {
-            Mensaje mensajeSeleccionado = (Mensaje) mensajesLeidos.toArray()[opcionMensaje - 1];
-
+            Mensaje mensajeSeleccionado = obtenerMensajeEnCola(mensajesLeidos, opcionMensaje - 1);
             System.out.println("Contenido del mensaje:");
             System.out.println(mensajeSeleccionado.getContenido());
-        } else if (opcionMensaje == 0) {
-            System.out.println("Volviendo al menú principal.");
+
+            // VOLVER AL MENÚ
+
         } else {
             System.out.println("Opción no válida.");
+
+            // VOLVER AL MENÚ
+
         }
     }
-*/
-    public void mostrarBorradores(){
-        
+    private void restaurarColaMensajesLeidos(QueueList mensajesLeidos, QueueList tempQueue) {
+        while (!tempQueue.isEmpty()) {
+            mensajesLeidos.enqueue(tempQueue.dequeue());
+        }
     }
+    
+    private Mensaje obtenerMensajeEnCola(QueueList mensajesLeidos, int posicion) {
+        QueueList tempQueue = new QueueList();
+        Mensaje mensajeSeleccionado = null;
+    
+        while (!mensajesLeidos.isEmpty()) {
+            Mensaje mensaje = (Mensaje) mensajesLeidos.dequeue();
+    
+            // Si es la posición deseada, asignar el mensaje seleccionado
+            if (posicion == 0) {
+                mensajeSeleccionado = mensaje;
+            }
+
+            tempQueue.enqueue(mensaje);
+            posicion--;
+        }
+    
+        mensajesLeidos.setData(tempQueue.getData());
+    
+        return mensajeSeleccionado;
+    }
+
 
     private Usuario buscarUsuario(long cedula) {
         DoubleNode currentNode = empleados.first();
