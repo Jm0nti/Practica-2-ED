@@ -132,5 +132,17 @@ public class DoubleList {
 
         return current.getData();
     }
+
+    public DoubleNode getNodo(int index){
+         if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+        }
+        
+        DoubleNode currentNode = head;
+        for(int i= 1;i<size;i++){
+            currentNode = currentNode.getNext();
+        }
+        return currentNode;
+    }
     
 }

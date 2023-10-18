@@ -1,63 +1,63 @@
 package Estructuras;
 
 public class List {
-    private Node head,tail;
+    private Node head, tail;
     private int size;
-    
-    public void List(){
+
+    public void List() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
-    
-    public int size(){
+
+    public int size() {
         return size;
     }
-    
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return size == 0;
     }
-    
-    public void setSize(int s){
+
+    public void setSize(int s) {
         this.size = s;
     }
-    
-    public Node first(){
+
+    public Node first() {
         return head;
     }
-    
-    public Node last(){
+
+    public Node last() {
         return tail;
     }
-    
-    public void addFirst(Object e){
+
+    public void addFirst(Object e) {
         Node n = new Node(e);
-        if (isEmpty()){
+        if (isEmpty()) {
             head = n;
             tail = n;
-        }else{
+        } else {
             n.setNext(head);
             head = n;
         }
         size++;
     }
-    
-    public void addLast(Object e){
+
+    public void addLast(Object e) {
         Node n = new Node(e);
-        if(isEmpty()){
-        head = n;
-        tail = n;
-        }else{
+        if (isEmpty()) {
+            head = n;
+            tail = n;
+        } else {
             tail.setNext(n);
-            tail = n;     
+            tail = n;
         }
         size++;
     }
-    
-    public Object removeFirst(){
-        if (isEmpty()){
+
+    public Object removeFirst() {
+        if (isEmpty()) {
             return null;
-        }else{
+        } else {
             Node temp = head;
             head = temp.getNext();
             temp.setNext(null);
@@ -65,21 +65,21 @@ public class List {
             return temp.getData();
         }
     }
-    
-    public Object removeLast(){
-        if(size == 1){
+
+    public Object removeLast() {
+        if (size == 1) {
             return removeFirst();
-        }else{
+        } else {
             Node temp = tail;
-            Node anterior  = head;
-            while(anterior.getNext()!= tail){
+            Node anterior = head;
+            while (anterior.getNext() != tail) {
                 anterior = anterior.getNext();
             }
             anterior.setNext(null);
             tail = anterior;
             size--;
             return temp.getData();
-        }           
+        }
     }
 
     public Object get(int index) {

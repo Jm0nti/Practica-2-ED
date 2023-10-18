@@ -1,10 +1,10 @@
 package Estructuras;
 
 public class StackList {
-    private List data;
+    private DoubleList data;
 
     public StackList() {
-        data = new List();
+        data = new DoubleList();
     }
 
     public int size() {
@@ -31,11 +31,11 @@ public class StackList {
         }
     }
 
-    public List getData() {
+    public DoubleList getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(DoubleList data) {
         this.data = data;
     }
 }

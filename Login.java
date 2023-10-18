@@ -73,7 +73,6 @@ public class Login {
                 int opcion = menu.obtenerOpcion();
                 menu.manejarOpcion(opcion);
                 if(opcion == 0){
-                    mensajeria.escribirArchivos();
                     break;
                 }
                 }
