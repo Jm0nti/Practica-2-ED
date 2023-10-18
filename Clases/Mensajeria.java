@@ -125,6 +125,7 @@ public class Mensajeria {
         try {
             FileReader Borradores = new FileReader("Archivos/Borradores.txt");
             BufferedReader lector = new BufferedReader(Borradores);
+            DoubleList importarBorradores = new DoubleList();
             if (Borradores.ready()) {
                 String dataAux;
                 while ((dataAux = lector.readLine()) != null) {
@@ -147,8 +148,9 @@ public class Mensajeria {
                             Long.parseLong(destinatarioAux[6]), destinatarioAux[7], direccion2);
                     Mensaje mensaje = new Mensaje(remitente, destinatario, data[2], data[3]);
                     mensaje.setFecha(data[4]);
-                    borradores.push(mensaje);
+                    importarBorradores.addLast(mensaje);
                 }
+                borradores.setData(importarBorradores);
             }
             lector.close();
         } catch (Exception e) {
@@ -499,8 +501,7 @@ public class Mensajeria {
                         Mensaje borradorEnviar = (Mensaje) borradoresRemitente.first().getData();
                         DoubleList borradorLista = (DoubleList) borradores.getData();
                         agregarMensajeBandejaEntrada(borradorEnviar);
-                        DoubleNode nodoaBorrar = obtenerMensajeNodo(borradorEnviar);
-                        borradorLista.remove(nodoaBorrar);
+                        borradorLista.remove(obtenerMensajeNodo(borradorEnviar));
                         borradores.setData(borradorLista);
                         System.out.println("El mensaje fue enviado con exito a "+borradorEnviar.getDestinatario().getId()+".");
                         break;
@@ -655,12 +656,14 @@ public class Mensajeria {
     public StackList buscarBorradoresRemitente(Usuario remitente){
         StackList borradoresRemitente = new StackList();
         DoubleList lista = (DoubleList) borradores.getData();
+        DoubleList listaBorradoresRemitente = new DoubleList();
         for(int i =0;i<lista.size();i++){
             Mensaje mensajeBorrador = (Mensaje) lista.get(i);
             Usuario usuarioBorrador = (Usuario) mensajeBorrador.getRemitente();
             if(usuarioBorrador.getId() == remitente.getId()){
-                borradoresRemitente.push(mensajeBorrador);
+                listaBorradoresRemitente.addLast(mensajeBorrador);
             }
+            borradoresRemitente.setData(listaBorradoresRemitente);
         }
         return borradoresRemitente;
     }

@@ -139,7 +139,7 @@ public class DoubleList {
         }
         
         DoubleNode currentNode = head;
-        for(int i= 1;i<size;i++){
+        for(int i= 1;i<index;i++){
             currentNode = currentNode.getNext();
         }
         return currentNode;
