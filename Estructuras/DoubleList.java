@@ -132,5 +132,4 @@ public class DoubleList {
 
         return current.getData();
     }
-    
 }

@@ -1,7 +1,5 @@
 import Clases.*;
 import Estructuras.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Login {
@@ -20,8 +18,6 @@ public class Login {
             // Verificar estado de Login y estado de empleado
             boolean VerificarLogin = false;
             boolean SuperUser = false;
-
-            DoubleList contraseñas = mensajeria.getContraseñas();
             
             DoubleList usuarios = mensajeria.getEmpleados();
             Usuario remitente = null;

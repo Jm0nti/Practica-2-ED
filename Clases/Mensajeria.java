@@ -414,17 +414,22 @@ public class Mensajeria {
         System.out.println("Bandeja de entrada:");
 
         // Recorrer la bandeja de entrada y mostrar mensajes no leídos
-        for (int i = 0; i < bandejaEntrada.size(); i++) {
-            Mensaje mensaje = (Mensaje) bandejaEntrada.get(i);
+        DoubleNode current = bandejaEntrada.first();
+        int index = 1;
+        while (current != null) {
+            Mensaje mensaje = (Mensaje) current.getData();
 
-            // Verificar que el destinatario sea el usuario en sesión y que el mensaje no
-            // esté leído
+            // Verificar que el destinatario sea el usuario en sesión y que el mensaje no esté leído
             if (mensaje.getDestinatario().getId() == remitente.getId() && !mensaje.isLeido()) {
+                System.out.println("Número de mensaje: " + index);
                 System.out.println("Fecha de recepción: " + mensaje.getFechaEnvio());
                 System.out.println("Remitente: " + mensaje.getRemitente().getNombre());
                 System.out.println("Título del mensaje: " + mensaje.getTitulo());
                 System.out.println("------------------------------");
             }
+
+            current = current.getNext();
+            index++;
         }
 
         // Seleccionar y leer un mensaje específico
@@ -432,11 +437,17 @@ public class Mensajeria {
         int opcionMensaje = scanner.nextInt();
 
         if (opcionMensaje > 0 && opcionMensaje <= bandejaEntrada.size()) {
-            Mensaje mensajeSeleccionado = (Mensaje) bandejaEntrada.get(opcionMensaje - 1);
+            // Encontrar el nodo que contiene el mensaje seleccionado
+            DoubleNode mensajeNode = getNodeAtIndex(bandejaEntrada, opcionMensaje - 1);
+
+            Mensaje mensajeSeleccionado = (Mensaje) mensajeNode.getData();
 
             // Marcar el mensaje como leído
             mensajeSeleccionado.setLeido(true);
             agregarMensajeLeido(mensajeSeleccionado);
+
+            // Eliminar el mensaje de la lista doble
+            bandejaEntrada.remove(mensajeNode);
 
             // Leer el contenido del mensaje
             System.out.println("Contenido del mensaje:");
@@ -447,6 +458,21 @@ public class Mensajeria {
             System.out.println("Opción no válida.");
         }
     }
+
+    //StackOverflow se pone la 10
+    private DoubleNode getNodeAtIndex(DoubleList doubleList, int index) {
+        if (index < 0 || index >= doubleList.size()) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+        }
+
+        DoubleNode current = doubleList.first();
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+
+        return current;
+    }
+    
 
     public void mostrarBorradores(Usuario remitente){
         System.out.println("Borradores: ");
