@@ -47,20 +47,15 @@ public class Login {
 
             while (currentDoubleNodeU != null) {
                 Usuario usuario = (Usuario) currentDoubleNodeU.getData();
-                String contraseña = usuario.getId() + " " + usuario.getNombre() + " " + usuario.getEmail();
+                Long id = usuario.getId();
 
-                if (contraseña.equals(idIngresada + " " + contraseñaIngresada + " administrador")) {
-                    VerificarLogin = true;
-                    SuperUser = true;
-                    remitente = usuario;
-                    break;
-                } else if (contraseña.equals(idIngresada + " " + contraseñaIngresada + " empleado")) {
-                    System.out.println("Hola Munda");
-                    VerificarLogin = true;
+                Long idIngresadaLong = Long.parseLong(idIngresada);
+            
+                if (id.equals(idIngresadaLong)) {
                     remitente = usuario;
                     break;
                 }
-
+            
                 currentDoubleNodeU = currentDoubleNodeU.getNext();
             }
 

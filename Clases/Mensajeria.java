@@ -115,8 +115,6 @@ public class Mensajeria {
                 }
             }
             Mensaje prueba = (Mensaje) bandejaEntrada.first().getNext().getData();
-            System.out.println(prueba.getContenido());
-            System.out.println(bandejaEntrada.size());
             lector.close();
         } catch (Exception e) {
             System.out.println("La bandeja de entrada no se pudo cargar correctamente.");
@@ -208,11 +206,8 @@ public class Mensajeria {
         String texto = "";
         
         Mensaje prueba = (Mensaje) bandejaEntrada.first().getNext().getData();
-        System.out.println(prueba.getContenido());
-        System.out.println(bandejaEntrada.size());
         for (int i = 0; i < bandejaEntrada.size(); i++) {
             Mensaje mensaje = (Mensaje) bandejaEntrada.get(i);
-            System.out.println(mensaje.getContenido()); 
             if (i == 0) {
                 texto = mensaje.getRemitente().getNombre() + " " + mensaje.getRemitente().getId() + " "
                         + mensaje.getRemitente().getFechaNac().getDd() + " "
@@ -279,11 +274,9 @@ public class Mensajeria {
 
     public void escribirBorradores() {
         List borradoresAux = borradores.getData();
-        System.out.println(borradoresAux.size());
         String texto = "";
         for (int i = 0; i < borradoresAux.size(); i++) {
             Mensaje mensaje = (Mensaje) borradoresAux.get(i);
-
             if (i == 0) {
                 texto = mensaje.getRemitente().getNombre() + " " + mensaje.getRemitente().getId() + " "
                         + mensaje.getRemitente().getFechaNac().getDd() + " "
@@ -349,7 +342,6 @@ public class Mensajeria {
 
     public void escribirMensajesLeidos() {
         List mensajesLeidosAux = mensajesLeidos.getData();
-        System.out.println(mensajesLeidosAux.size());
         String texto = "";
         for (int i = 0; i < mensajesLeidosAux.size(); i++) {
             Mensaje mensaje = (Mensaje) mensajesLeidosAux.get(i);
@@ -455,6 +447,40 @@ public class Mensajeria {
             System.out.println("Opción no válida.");
         }
     }
+
+    public void mostrarBorradores(Usuario remitente){
+        System.out.println("Borradores: ");
+        StackList borradoresRemitente = buscarBorradoresRemitente(remitente);
+        StackList borradoresRemitenteAux = borradoresRemitente;
+        Scanner borradoresScanner = new Scanner(System.in);
+        if(borradoresRemitente.size()!= 0){
+            for(int i = 0;i<borradoresRemitente.size();i++){
+            Mensaje mensajeBorrador = (Mensaje) borradoresRemitente.pop();
+            System.out.println((i+1)+". "+mensajeBorrador.getTitulo());
+            }
+            System.out.println("Seleccione la opcion del borrador que desee modificar: ");
+            int opcion = borradoresScanner.nextInt();
+            opcion = opcion-1; 
+            if(opcion == 0){
+                System.out.println("Seleccione lo que desea hacer con el borrador: ");
+                System.out.println("1. Enviar Mensaje");
+                System.out.println("2. Descartar Mensaje");
+                System.out.println("3. Salir");
+                int opcionAux = borradoresScanner.nextInt();
+                switch(opcionAux){
+                    case 1:
+                        Mensaje mensajeB = (Mensaje) borradoresRemitenteAux.pop();
+                        //List lista = borradores.getData().removeFirst();
+                }
+            }else{
+                System.out.println("Solo puede acceder al primer borrador, para acceder a uno distinto,"
+                +"por favor termine de realizar sus tareas con el primero.");
+            }
+        }else{
+            System.out.println("No tiene borradores pendientes.");
+        }
+        borradoresScanner.close();
+    } 
 
     // ENVIAR MENSAJE
     public void enviarMensaje(Usuario remitente) {
@@ -593,6 +619,18 @@ public class Mensajeria {
             currentNode = currentNode.getNext();
         }
         return null;
+    }
+    public StackList buscarBorradoresRemitente(Usuario remitente){
+        StackList borradoresAux = borradores;
+        StackList borradoresRemitente = new StackList();
+        for(int i =0;i<borradores.size();i++){
+            Mensaje mensajeBorrador = (Mensaje) borradoresAux.pop();
+            Usuario usuarioBorrador = (Usuario) mensajeBorrador.getRemitente();
+            if(usuarioBorrador.getId() == remitente.getId()){
+                borradoresRemitente.push(mensajeBorrador);
+            }
+        }
+        return borradoresRemitente;
     }
 
     public void agregarMensajeBandejaEntrada(Mensaje mensaje) {

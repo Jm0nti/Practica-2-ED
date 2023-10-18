@@ -57,13 +57,14 @@ public class Menu {
     public void manejarOpcion(int opcion) {
         switch (opcion) {
             case 1:
+                System.out.println(remitente.getNombre());
                 mensajeria.mostrarBandejaEntrada(remitente);
                 break;
             case 2:
                 mensajeria.mostrarMensajesLeidos(mensajeria.getMensajesLeidos(), remitente);
                 break;
             case 3:
-                // Lógica para la opción 3
+                mensajeria.mostrarBorradores(remitente);
                 break;
             case 4:
                 mensajeria.enviarMensaje(remitente);
